@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallchain Points Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Wallchain Points Tracker</h1>
+            <p class="subtitle">Отслеживайте свои баллы по проектам</p>
+        </header>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="usernameInput" 
+                    placeholder="Введите ваш никнейм..."
+                    autocomplete="off"
+                >
+                <button id="searchBtn" onclick="searchUser()">Поиск</button>
+            </div>
+        </div>
+
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Загрузка данных...</p>
+        </div>
+
+        <div id="error" class="error hidden"></div>
+
+        <div id="results" class="results hidden">
+            <div class="user-info">
+                <h2 id="userName"></h2>
+                <div class="total-points">
+                    <span class="label">Всего баллов:</span>
+                    <span id="totalPoints" class="points-value">0</span>
+                </div>
+            </div>
+
+            <div class="projects-section">
+                <h3>Баллы по проектам:</h3>
+                <div id="projectsList" class="projects-list"></div>
+            </div>
+
+            <div class="pagination">
+                <button id="prevBtn" onclick="previousPage()" disabled>Предыдущая</button>
+                <span id="pageInfo">Страница 1</span>
+                <button id="nextBtn" onclick="nextPage()">Следующая</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>Данные получены из <a href="https://api.wallchain.xyz" target="_blank">Wallchain API</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
