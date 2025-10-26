@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallchain Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔗 Wallchain Tracker</h1>
+            <p class="subtitle">Track your points across projects</p>
+        </header>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="nicknameInput" 
+                    placeholder="Enter your nickname"
+                    autocomplete="off"
+                >
+                <button id="searchBtn" onclick="searchUser()">
+                    <span id="searchBtnText">Search</span>
+                    <span id="searchBtnLoading" class="loading" style="display: none;">Searching...</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+        <div id="results" class="results-section" style="display: none;">
+            <div class="user-info">
+                <h2 id="userName"></h2>
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Points</div>
+                        <div class="stat-value" id="totalPoints">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Projects</div>
+                        <div class="stat-value" id="projectCount">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Rank</div>
+                        <div class="stat-value" id="userRank">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="projects-section">
+                <h3>Project Breakdown</h3>
+                <div id="projectsList" class="projects-list"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Powered by <a href="https://wallchain.xyz" target="_blank">Wallchain API</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
