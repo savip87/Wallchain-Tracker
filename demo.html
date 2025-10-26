@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallchain Tracker - Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔗 Wallchain Tracker</h1>
+            <p class="subtitle">Track your points across projects</p>
+            <p style="color: white; margin-top: 10px; font-size: 0.9em;">⚠️ Demo with sample data</p>
+        </header>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="nicknameInput" 
+                    placeholder="Enter your nickname"
+                    value="crypto_user123"
+                    disabled
+                >
+                <button id="searchBtn" disabled>
+                    <span>Search</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="results" class="results-section">
+            <div class="user-info">
+                <h2>crypto_user123</h2>
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Points</div>
+                        <div class="stat-value">45,750</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Projects</div>
+                        <div class="stat-value">5</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Rank</div>
+                        <div class="stat-value">#42</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="projects-section">
+                <h3>Project Breakdown</h3>
+                <div class="projects-list">
+                    <div class="project-card">
+                        <div class="project-name">DeFi Protocol Alpha</div>
+                        <div class="project-points">15,500 points</div>
+                        <div class="project-details">
+                            <div class="project-detail-item">📁 Category: DeFi</div>
+                            <div class="project-detail-item">👥 Referrals: 12</div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-name">NFT Marketplace Beta</div>
+                        <div class="project-points">12,300 points</div>
+                        <div class="project-details">
+                            <div class="project-detail-item">📁 Category: NFT</div>
+                            <div class="project-detail-item">👥 Referrals: 8</div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-name">Staking Platform Gamma</div>
+                        <div class="project-points">10,200 points</div>
+                        <div class="project-details">
+                            <div class="project-detail-item">📁 Category: Staking</div>
+                            <div class="project-detail-item">👥 Referrals: 5</div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-name">Governance DAO</div>
+                        <div class="project-points">5,450 points</div>
+                        <div class="project-details">
+                            <div class="project-detail-item">📁 Category: Governance</div>
+                            <div class="project-detail-item">👥 Referrals: 3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-name">Wallet Integration</div>
+                        <div class="project-points">2,300 points</div>
+                        <div class="project-details">
+                            <div class="project-detail-item">📁 Category: Infrastructure</div>
+                            <div class="project-detail-item">👥 Referrals: 1</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Powered by <a href="https://wallchain.xyz" target="_blank">Wallchain API</a></p>
+        </footer>
+    </div>
+</body>
+</html>

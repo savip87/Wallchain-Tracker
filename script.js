@@ -1,5 +1,6 @@
 const API_BASE_URL = 'https://api.wallchain.xyz/voices/points/paginated';
 const PAGE_SIZE = 100; // Fetch more results to increase chance of finding user
+const MAX_PAGES_TO_FETCH = 10; // Limit to first 10 pages for performance
 
 // Store all fetched data
 let allUsers = [];
@@ -48,7 +49,7 @@ async function searchUser() {
 async function fetchAllPages(nickname) {
     let found = false;
     
-    while (!found && currentPage <= 10) { // Limit to first 10 pages for performance
+    while (!found && currentPage <= MAX_PAGES_TO_FETCH) {
         const data = await fetchPage(currentPage);
         
         if (!data || !data.data) {
@@ -98,6 +99,11 @@ function findUser(nickname) {
     });
 }
 
+// Extract points from project object
+function getProjectPoints(project) {
+    return project.points || project.totalPoints || 0;
+}
+
 // Display user data
 function displayUserData(user) {
     // Update user name
@@ -107,7 +113,7 @@ function displayUserData(user) {
     // Calculate total points
     const projects = user.projects || user.projectPoints || [];
     const totalPoints = projects.reduce((sum, project) => {
-        return sum + (project.points || project.totalPoints || 0);
+        return sum + getProjectPoints(project);
     }, 0);
     
     // Update stats
@@ -147,8 +153,8 @@ function displayProjects(projects) {
     
     // Sort projects by points (descending)
     const sortedProjects = [...projects].sort((a, b) => {
-        const pointsA = a.points || a.totalPoints || 0;
-        const pointsB = b.points || b.totalPoints || 0;
+        const pointsA = getProjectPoints(a);
+        const pointsB = getProjectPoints(b);
         return pointsB - pointsA;
     });
     
@@ -164,7 +170,7 @@ function createProjectCard(project) {
     card.className = 'project-card';
     
     const projectName = project.projectName || project.name || 'Unknown Project';
-    const points = project.points || project.totalPoints || 0;
+    const points = getProjectPoints(project);
     
     let detailsHTML = '';
     
@@ -177,8 +183,15 @@ function createProjectCard(project) {
         detailsHTML += `<div class="project-detail-item">👥 Referrals: ${refCount}</div>`;
     }
     if (project.lastActivity || project.lastUpdated) {
-        const date = new Date(project.lastActivity || project.lastUpdated);
-        detailsHTML += `<div class="project-detail-item">🕒 Last Activity: ${date.toLocaleDateString()}</div>`;
+        const dateStr = project.lastActivity || project.lastUpdated;
+        try {
+            const date = new Date(dateStr);
+            if (!isNaN(date.getTime())) {
+                detailsHTML += `<div class="project-detail-item">🕒 Last Activity: ${date.toLocaleDateString()}</div>`;
+            }
+        } catch (e) {
+            // Ignore invalid dates
+        }
     }
     
     card.innerHTML = `

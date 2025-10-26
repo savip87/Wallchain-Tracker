@@ -44,6 +44,7 @@ Simply open `index.html` in your web browser. No build process or dependencies r
 ├── index.html    # Main HTML structure
 ├── style.css     # Styling and layout
 ├── script.js     # JavaScript functionality and API integration
+├── demo.html     # Demo page with sample data
 └── README.md     # Documentation
 ```
 
