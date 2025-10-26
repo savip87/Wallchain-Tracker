@@ -3,8 +3,9 @@ let currentUsername = '';
 let totalPages = 1;
 const pageSize = 10;
 
-// Demo mode - will be used when API is not accessible
-const DEMO_MODE = false; // Set to true to test with demo data
+// Demo mode - can be enabled via URL parameter ?demo=true
+const urlParams = new URLSearchParams(window.location.search);
+const DEMO_MODE = urlParams.get('demo') === 'true';
 
 // Demo data for testing
 const DEMO_DATA = {
