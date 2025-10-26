@@ -3,6 +3,44 @@ let currentUsername = '';
 let totalPages = 1;
 const pageSize = 10;
 
+// Demo mode - will be used when API is not accessible
+const DEMO_MODE = false; // Set to true to test with demo data
+
+// Demo data for testing
+const DEMO_DATA = {
+    data: [
+        {
+            username: 'DemoUser',
+            totalPoints: 15420,
+            projects: [
+                { name: 'Uniswap', points: 3500 },
+                { name: 'Aave', points: 2800 },
+                { name: 'Compound', points: 2100 },
+                { name: 'SushiSwap', points: 1900 },
+                { name: 'Curve', points: 1750 },
+                { name: 'Balancer', points: 1520 },
+                { name: '1inch', points: 1200 },
+                { name: 'Yearn', points: 650 }
+            ]
+        },
+        {
+            username: 'TestUser',
+            totalPoints: 8750,
+            projects: [
+                { name: 'Uniswap', points: 2500 },
+                { name: 'Aave', points: 2000 },
+                { name: 'Compound', points: 1500 },
+                { name: 'SushiSwap', points: 1250 },
+                { name: 'Curve', points: 1000 },
+                { name: 'Balancer', points: 500 }
+            ]
+        }
+    ],
+    hasNextPage: true,
+    currentPage: 1,
+    totalPages: 5
+};
+
 // Поиск пользователя
 async function searchUser() {
     const username = document.getElementById('usernameInput').value.trim();
@@ -29,15 +67,24 @@ async function fetchUserData() {
     resultsEl.classList.add('hidden');
     
     try {
-        const response = await fetch(
-            `https://api.wallchain.xyz/voices/points/paginated?pageSize=${pageSize}&page=${currentPage}`
-        );
+        let data;
         
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        // Use demo data if in demo mode
+        if (DEMO_MODE) {
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 500));
+            data = DEMO_DATA;
+        } else {
+            const response = await fetch(
+                `https://api.wallchain.xyz/voices/points/paginated?pageSize=${pageSize}&page=${currentPage}`
+            );
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            data = await response.json();
         }
-        
-        const data = await response.json();
         
         // Поиск пользователя в данных
         const userData = findUserInData(data, currentUsername);
@@ -74,6 +121,11 @@ function findUserInData(data, username) {
 
 // Поиск пользователя на всех страницах
 async function searchUserInAllPages(username) {
+    // Skip multi-page search in demo mode
+    if (DEMO_MODE) {
+        return null;
+    }
+    
     // Попробуем первые 10 страниц
     for (let page = 1; page <= 10; page++) {
         try {
